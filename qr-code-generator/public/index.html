@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+</head>
+<body>
+    <h1>اسکن کد QR خود را انجام دهید</h1>
+    <button id="generateQR">تولید QR کد</button>
+    <div id="qrCodeContainer"></div>
+
+    <script>
+        document.getElementById('generateQR').addEventListener('click', async () => {
+            const response = await fetch('/api/generate');
+            const data = await response.json();
+
+            if (response.ok) {
+                const qrCodeContainer = document.getElementById('qrCodeContainer');
+                qrCodeContainer.innerHTML = `<img src="${data.qrCodeUrl}" alt="QR Code">`;
+            } else {
+                alert('خطا در تولید QR کد');
+            }
+        });
+    </script>
+</body>
+</html>
